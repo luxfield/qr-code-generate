@@ -64,7 +64,7 @@
           <svg :width="size" :height="size" version="1.1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink">
             <svg v-html="preview"></svg>
-            <rect fill="white" stroke-width="6px" stroke="black" width="125" height="80"
+            <rect fill="white" stroke-width="6px" :stroke="[this.color === null ? 'black' : this.color]" width="125" height="80"
               :x="size / 2 - (size * logoScale) / 2" :y="size / 2 - (size * logoScale) / 2 + 10" />
             <svg :x="size / 2 - (size * logoScale) / 2" :y="size / 2 - (size * logoScale) / 2 + 8" width="125"
               height="100" viewBox="0 0 24 24" fill="red">
@@ -134,7 +134,6 @@ export default {
       exportType: "PNG",
       exportSize: 1200,
       loading: false,
-      githubURL: "https://github.com",
     };
   },
   methods: {
@@ -220,16 +219,11 @@ export default {
         return `QR-for-${url.hostname}`;
       } catch (error) {
         const dashMessage = this.message.replace(/ /g, "-");
-
         return `QR-for-${dashMessage}`;
 
       }
     },
     content() {
-      // if (this.message.startsWith("http")) return this.message;
-      // if (this.message.startsWith("/"))
-      //   return `${this.githubURL}${this.message}`;
-      // return `${this.githubURL}/${this.message}`;
       return this.message;
     },
     preview() {
